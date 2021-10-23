@@ -1,4 +1,4 @@
-const getTodos = url => new Promise((resolve, reject) => {
+const getPromise = url => new Promise((resolve, reject) => {
   const request = new XMLHttpRequest()
   
   request.addEventListener('readystatechange', () => {
@@ -19,8 +19,18 @@ const getTodos = url => new Promise((resolve, reject) => {
   request.send()
 })
   
-getTodos('https://pokeapi.co/api/v2/pokemon/1')
-  .then(value => console.log(value))
+getPromise('https://pokeapi.co/api/v2/pokemon/1')
+  .then(pokemon => {
+    console.log(pokemon)
+    return getPromise('https://jsonplaceholder.typicode.com/todos')
+  })
+  .then(todo => {
+    console.log(todo)
+    return getPromise('./todos.json')
+  })
+  .then(todoLocal => {
+    console.log(todoLocal)
+  })
   .catch(error => console.log(error))
   
 
