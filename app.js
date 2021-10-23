@@ -1,13 +1,6 @@
-const getTodos = callback => {
-  
-  // 1- Instancia o objeto 
+const getTodos = (url, callback) => {
   const request = new XMLHttpRequest()
-
-  // 1.1 - cria um eventlistener que para checar o estado das requisicoes
-  // request.readyState = 4 -> DONE  
-  // request.status === 200 -> SUCCESS
-  // https://developer.mozilla.org/pt-BR/docs/Web/API/XMLHttpRequest/readyState
-  // https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
+  
   request.addEventListener('readystatechange', () => {
     const isOKRequest = request.readyState === 4 && request.status === 200
     const isNotOKRequest = request.readyState === 4
@@ -22,22 +15,18 @@ const getTodos = callback => {
     }
   })
   
-  // 2- Configure o tipo de request e qual seu endpoint
-  request.open('GET', 'https://jsonplaceholder.typicode.com/todos')
-  
-  // 3 - Envie a request
+
+  request.open('GET', url)
   request.send()
   
 }
 
-getTodos((error, data) => {
-  console.log('callback executado')
-  
-  if(error) {
-    console.log(error)
-    return
-  }
-
+getTodos('./todos.json', (error, data) => {
   console.log(data)
+
+  getTodos('https://jsonplaceholder.typicode.com/todos', (error, data) => {
+    console.log(data)
+  })
 })
+
 
