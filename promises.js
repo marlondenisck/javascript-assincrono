@@ -34,25 +34,5 @@ getPromise('https://pokeapi.co/api/v2/pokemon/1')
   .catch(error => console.log(error))
   
 
-// getTodos('./todos.json', (error, data) => {
-//   console.log(data)
-
-//   getTodos('https://jsonplaceholder.typicode.com/todos', (error, data) => {
-//     console.log(data)
-//   })
-// })
-
-
-// const getData = (() => {
-//   return new Promise((resolve, reject) => {
-//     resolve('dados aqui')
-//     // reject('error')
-//   })
-// })
-
-
-// getData()
-//   .then(value => console.log(value))
-//   .catch(error => console.log(error))
 
 
