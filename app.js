@@ -1,4 +1,4 @@
-const getTodos = (url, callback) => {
+const getTodos = url => new Promise((resolve, reject) => {
   const request = new XMLHttpRequest()
   
   request.addEventListener('readystatechange', () => {
@@ -6,27 +6,43 @@ const getTodos = (url, callback) => {
     const isNotOKRequest = request.readyState === 4
     
     if(isOKRequest) {
-      callback(null, JSON.parse(request.responseText))
-      return
+      resolve(JSON.parse(request.responseText))
     }
 
     if(isNotOKRequest) {
-      callback('Não foi possível obter os dados da API', null)
+      reject('Não foi possível obter os dados da API')
     }
   })
   
 
   request.open('GET', url)
   request.send()
-  
-}
-
-getTodos('./todos.json', (error, data) => {
-  console.log(data)
-
-  getTodos('https://jsonplaceholder.typicode.com/todos', (error, data) => {
-    console.log(data)
-  })
 })
+  
+getTodos('https://pokeapi.co/api/v2/pokemon/1')
+  .then(value => console.log(value))
+  .catch(error => console.log(error))
+  
+
+// getTodos('./todos.json', (error, data) => {
+//   console.log(data)
+
+//   getTodos('https://jsonplaceholder.typicode.com/todos', (error, data) => {
+//     console.log(data)
+//   })
+// })
+
+
+// const getData = (() => {
+//   return new Promise((resolve, reject) => {
+//     resolve('dados aqui')
+//     // reject('error')
+//   })
+// })
+
+
+// getData()
+//   .then(value => console.log(value))
+//   .catch(error => console.log(error))
 
 
